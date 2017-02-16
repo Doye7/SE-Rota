@@ -14,10 +14,11 @@ import java.util.*;
  * @author Doye
  */
 public class INSEBase {
+    //Random for the generating of time table
    static Random rng = new Random();
 // -----------------------------------------------------------------------------
 //* Data is currently saved to C:/data/ and consists of one file named
-//employee.ser. Run twice to generate the file if a read fails.
+//employee.ser. Run once then save to generate the file if a read fails.
 //------------------------------------------------------------------------------
     /**
      * @param args the command line arguments
@@ -33,20 +34,89 @@ public class INSEBase {
 //      empList.add(new Person("Jane Doe", "JDO", 20,3));
 //      empList.add(new Person("Matt Harris", "MAH", 20, 4));
  //     empList.add(new Person("Alice Williams", "ALW", 20, 5));
-        String[][] singleTable = Timetable.makeTimetable();
-        for(int i = 0; i < singleTable[0].length; i++){
-            for(int q = 0; q < singleTable.length; q++){
-                singleTable[q][i] = empList.get(rng.nextInt(empList.size())).getShortName();
-            }
-            
+ 
+ boolean exit = true;
+ Scanner input = new Scanner(System.in);
+ 
+ 
+ // Menu system
+ while(exit){
+        System.out.println("|------------------------|");
+        System.out.println("|Please choose an option:|");
+        System.out.println("|------------------------|");
+        System.out.println("|1|    Show employees    |");
+        System.out.println("|2|   Add new employee   |");
+        System.out.println("|3|    Show timetable    |");
+        System.out.println("|------------------------|");
+        System.out.println("|S|     Save changes     |");
+        System.out.println("|X|         Exit         |");
+        System.out.println("|------------------------|");
+        
+        String choice = input.next();
+        
+        switch (choice){
+            case "1": printList(empList);
+                 break;
+            case "2": addNewEmployee(empList);
+                 break;
+                 // Create and populate the timetable, creates a new timetable
+                 //and fills each location with a randomly assigned employee
+                 //from the employee list
+            case "3": 
+                String[][] singleTable = Timetable.makeTimetable();
+                for(int i = 0; i < singleTable[0].length; i++){
+                    for(int q = 0; q < singleTable.length; q++){
+                        singleTable[q][i] = empList.get(rng.nextInt(empList.size())).getShortName();
+                    }
+
+                }
+                Timetable.printTable(singleTable);
+            break;
+            case "S": saveListToFile(empList);
+            break;
+            case "X": exit = false;
+            break;            
         }
         
-
-
-//         Calls the print method
-        printList(empList);
-       saveListToFile(empList);
-       Timetable.printTable(singleTable); 
+        
+        if(exit){ 
+            System.out.println("Type Y to continue");
+            input.next();
+        }
+ }
+ 
+ 
+//        String[][] singleTable = Timetable.makeTimetable();
+//        for(int i = 0; i < singleTable[0].length; i++){
+//            for(int q = 0; q < singleTable.length; q++){
+//                singleTable[q][i] = empList.get(rng.nextInt(empList.size())).getShortName();
+//            }
+//            
+//        }
+//        
+//
+//
+////         Calls the print method
+//        printList(empList);
+//       saveListToFile(empList);
+//       Timetable.printTable(singleTable); 
+    }
+    private static void addNewEmployee(ArrayList<Person> empList){
+        Scanner empInput = new Scanner(System.in);
+        String name, sName;
+        int hours, id;
+        System.out.println();
+        System.out.println("Please enter the employee name:");
+        name = empInput.next();
+        name = name + " " + empInput.next();
+        System.out.println("Please enter the Shorthand name:");
+        sName = empInput.next();
+        System.out.println("Please enter the maximum hours:");
+        hours = empInput.nextInt();
+        System.out.println("Please enter an id:");
+        id = empInput.nextInt();
+        
+        empList.add(new Person(name, sName, hours, id));
     }
     // Prints the employees in the list
     private static void printList(ArrayList<Person> empList){
