@@ -1,0 +1,67 @@
+
+Randomiser{
+
+
+GetTotalNumberOfShifts()
+	If (NumberofShifts > 0)
+		GetLowestAvailable()
+			CompareHours()
+			Randomiser()
+		
+	else end if
+
+}
+
+
+private static GetTotalNumberOfShifts() {
+	
+	//This will get the total number of shifts from the database that are empty
+	return NumberofShifts
+}
+
+
+private static AvailabilityNumbers() {
+
+	//This will return the number of people that can do the shifts
+	reutrn AvailabilityNumbers
+}
+
+
+private static GetLowestAvailable() {
+
+	//This will check the shifts that have the lowest number of people to work based on the availability
+	(Check Availability Numbers)
+	(Get the shifts that can be done by the lowest number of people)
+		if (more than one shift has the same amount of people that can do them)
+			pick one at random
+			return shift
+	
+}
+
+private static CheckHours(int ID) {
+	//This will return the number of hours an employee is working
+	
+	return hours
+
+}
+
+private static void CompareHours() {
+
+	//This will compare how many hours an employee is working when more than one person is working a shift
+	//The ID will be taken from the employees that can work the shifts
+	CheckHours(int ID)
+		if(Hours are the same)
+		ChooseRandomEmployee()
+
+}
+
+private static ChooseRandomEmployee() {
+
+	//This will pick a random employee based on who can do the shift
+	//I'm not sure if this will integrate that well, if it doesn't - random employee can be chosen on CompareHours()
+	ArrayList{Employees}	
+	randomNumber (between 1, arraylist.length)
+	return randomNumber
+}
+
+}
