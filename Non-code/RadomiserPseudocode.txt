@@ -1,12 +1,16 @@
 
 Randomiser{
 
+private static void Randomiser()
+
 
 GetTotalNumberOfShifts()
 	If (NumberofShifts > 0)
 		GetLowestAvailable()
 			CompareHours()
+			UpdateAvailability()
 			Randomiser()
+			//If cannot be assigned then 'ERROR: Cannot Assign Shift'
 		
 	else end if
 
@@ -15,7 +19,7 @@ GetTotalNumberOfShifts()
 
 private static GetTotalNumberOfShifts() {
 	
-	//This will get the total number of shifts from the database that are empty
+	//This will get the total number of shifts from the database that are empty (somebody is not working in that shift)
 	return NumberofShifts
 }
 
@@ -23,14 +27,16 @@ private static GetTotalNumberOfShifts() {
 private static AvailabilityNumbers() {
 
 	//This will return the number of people that can do the shifts
-	reutrn AvailabilityNumbers
+	//Return an array of people that can actually work - within that it will have to populate the array
+	TotalAvailabilityCalendar() -----------------------
+		return AvailabilityNumbers
 }
 
 
 private static GetLowestAvailable() {
 
 	//This will check the shifts that have the lowest number of people to work based on the availability
-	(Check Availability Numbers)
+		AvailabilityNumbers()
 	(Get the shifts that can be done by the lowest number of people)
 		if (more than one shift has the same amount of people that can do them)
 			pick one at random
@@ -38,9 +44,11 @@ private static GetLowestAvailable() {
 	
 }
 
-private static CheckHours(int ID) {
-	//This will return the number of hours an employee is working
-	
+private static CheckHours(int EmployeeID) {
+	//This will return the number of hours an employee is working WHEN a shift is selected
+	//so that they can be compared in order to assign the shift to the employee who has the
+	//least amount of hours currently assigned to them
+
 	return hours
 
 }
@@ -63,5 +71,29 @@ private static ChooseRandomEmployee() {
 	randomNumber (between 1, arraylist.length)
 	return randomNumber
 }
+
+private static void UpdateAvailability() {
+
+	//Checks last employee assigned a shift
+	if (TotalAssignedHours >= MaxHours - 2) ------------------------------------------------------------ If the hours are equal to or less than 2 hours of maximum requested hours.
+		//Put the new hours in their availbility (another function to be called)
+		remove from temp availability list
+
+	else 
+		////Put the new hours in their availbility (another function to be called)
+
+	
+		
+
+	//When a shift is given, the availabiltiy will change to a temporary copy of the availability timetable
+	//This will then be populated as a shift is assigned
+	
+	//Will look into this bit later...
+
+}
+
+//Availability needs to update as someone is assigned a shift due to collisions happening
+//If Nobody can do a shift - there needs to be an error message
+//We need to remove employee if they have reached their max hours; for simplicity they should be removed from the availability list if they have reached their (MaxRequestedHours - 2)
 
 }
