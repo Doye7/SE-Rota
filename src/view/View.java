@@ -9,11 +9,11 @@ package view;
  *
  * @author joel
  */
-
+//Importing componants for main form
 import javax.swing.JFrame;
 import static javax.swing.JFrame.EXIT_ON_CLOSE;
 import javax.swing.JPanel;
-
+//creating main form
 public class View extends JFrame {
 
 	public View (String title, JPanel content)
@@ -21,10 +21,12 @@ public class View extends JFrame {
 		super (title);
 		
 		add (content);
-		
+		//allowing for termination on close
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		pack();
+		//setting relative location of form 
 		setLocationRelativeTo(null);
+		//setting form to be visible
 		setVisible(true);
 	}
 	
