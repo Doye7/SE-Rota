@@ -9,7 +9,7 @@ package view;
  *
  * @author joel
  */
-
+//Importing packages for format
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
@@ -25,7 +25,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.DayOfWeek;
 import java.time.Instant;
-
+//Importing componenets to be used
 import javax.swing.BorderFactory;
 import javax.swing.JComboBox;
 import javax.swing.JFormattedTextField;
@@ -34,14 +34,14 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
 import javax.swing.text.DateFormatter;
-
+//Importing Datepicker class package to allow for calender widget to be used for date selection
 import net.sourceforge.jdatepicker.impl.JDatePanelImpl;
 import net.sourceforge.jdatepicker.impl.JDatePickerImpl;
 import net.sourceforge.jdatepicker.impl.UtilDateModel;
 
-
+//Creating Add Employee Form
 public class ViewAddEmployee extends JPanel {
-
+//Declaring Variables and Types
 	private JTextField firstName;
 
 	private JTextField lastName;
@@ -61,7 +61,7 @@ public class ViewAddEmployee extends JPanel {
 	public final static DateFormat DF;
 
 	public final static DateFormatter TIME_FORMAT = new DateFormatter (DF = new SimpleDateFormat("HH:mm"));
-
+	//Creating/formating panel with parseexcepttion to deal with runtime errors
 	public ViewAddEmployee() throws ParseException
 	{
 		super (new FlowLayout (FlowLayout.RIGHT, 10, 10));
@@ -104,7 +104,7 @@ public class ViewAddEmployee extends JPanel {
 		setupStartWorkingDate();
 
 	}
-
+	 //Creating date picker used when employee selects starting date will allow for only valid entrys
 	private void setupStartWorkingDate ()
 	{
 		add (new JLabel ("Select start working date:"));
@@ -114,7 +114,7 @@ public class ViewAddEmployee extends JPanel {
 		JDatePickerImpl datePicker = new JDatePickerImpl(datePanel);
 		add (datePicker);
 	}
-
+ 	//validating textfeilds and setting colours used to be uniform throughout
 	private class FieldValidation extends KeyAdapter {
 
 		@Override
@@ -149,7 +149,7 @@ public class ViewAddEmployee extends JPanel {
 			}
 		}
 	}
-
+	//Setting colour used by feilds
 	private class FontColorValidation extends FocusAdapter {
 
 		@Override
@@ -162,7 +162,7 @@ public class ViewAddEmployee extends JPanel {
 			}
 		}
 	}
-
+	//Allow for selection of employee and subsequent variables will de used for deletion of employee
 	private class TextSelection extends MouseAdapter {
 
 		@Override
@@ -180,31 +180,31 @@ public class ViewAddEmployee extends JPanel {
 			}
 		}
 	}
-
+	//Returning user input from Firstname textfield to variable
 	public JTextField getFirstName() {
 		return firstName;
 	}
-
+	//Returning user input from Lastname textfield to variable
 	public JTextField getLastName() {
 		return lastName;
 	}
-
+	//Returning user input from hours formated textfield to variable
 	public JFormattedTextField getHours() {
 		return hours;
 	}
-
+	//Returning user selection from dayoff combobox to variable
 	public JComboBox<DayOfWeek> getDayOffs() {
 		return dayOffs;
 	}
-
+	 //Returning user selection from start date from date selection to variable
 	public UtilDateModel getStartWorkingDate() {
 		return startWorkingDate;
 	}
-
+	//Returning user input from formated textfield to variable
 	public JFormattedTextField getStartWorkingTime() {
 		return startWorkingTime;
 	}
-
+	//Method to clear feilds for quick reuse
 	public void clearFields () throws ParseException
 	{
 		firstName.setText("");
