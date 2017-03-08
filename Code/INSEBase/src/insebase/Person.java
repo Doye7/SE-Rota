@@ -15,13 +15,15 @@ package insebase;
 public class Person implements java.io.Serializable {
     private String fullName, shortName;
     private int maxHours, idNum;
+    private boolean able[][];
     
     // For creation of a new person
-    public Person(String name, String initials, int hours, int ID){
+    public Person(String name, String initials, int hours, int ID, boolean[][] table){
         fullName = name;
         shortName = initials;
         maxHours = hours;
         idNum = ID;
+        able = table;
     }
     
     // Get methods, just returns the value
@@ -37,6 +39,9 @@ public class Person implements java.io.Serializable {
     public int getIdNumber(){
         return idNum;
     }
+    public boolean[][] getAble(){
+        return able;
+    }
     
     //Set methods, changes the value
     public void setFullName(String newName){
@@ -50,5 +55,11 @@ public class Person implements java.io.Serializable {
     }
     public void setIdNumber(int newId){
         idNum = newId;
+    }
+    public void setAble(boolean[][] newAble){
+        able = newAble;
+    }
+    public void setSpecificAble(boolean newVal, int xCo, int yCo){
+        able[xCo][yCo] = newVal;
     }
 }

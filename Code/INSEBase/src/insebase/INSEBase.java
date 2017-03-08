@@ -63,14 +63,7 @@ public class INSEBase {
                  //and fills each location with a randomly assigned employee
                  //from the employee list
             case "3": 
-                String[][] singleTable = Timetable.makeTimetable();
-                for(int i = 0; i < singleTable[0].length; i++){
-                    for(int q = 0; q < singleTable.length; q++){
-                        singleTable[q][i] = empList.get(rng.nextInt(empList.size())).getShortName();
-                    }
-
-                }
-                Timetable.printTable(singleTable);
+                randomiser(empList);
             break;
             case "S": saveListToFile(empList);
             break;
@@ -105,6 +98,8 @@ public class INSEBase {
         Scanner empInput = new Scanner(System.in);
         String name, sName;
         int hours, id;
+        boolean table[][];
+        
         System.out.println();
         System.out.println("Please enter the employee name:");
         name = empInput.next();
@@ -116,7 +111,9 @@ public class INSEBase {
         System.out.println("Please enter an id:");
         id = empInput.nextInt();
         
-        empList.add(new Person(name, sName, hours, id));
+        table = Timetable.makeBoolTimetable();        
+        
+        empList.add(new Person(name, sName, hours, id, table));
     }
     // Prints the employees in the list
     private static void printList(ArrayList<Person> empList){
@@ -177,6 +174,17 @@ public class INSEBase {
         }
         // Return either an empty Arraylist<Person> or the loaded one
         return temp;
+    }
+    
+    private static void randomiser(ArrayList<Person> empList){
+        String[][] singleTable = Timetable.makeTimetable();
+        for(int i = 0; i < singleTable[0].length; i++){
+            for(int q = 0; q < singleTable.length; q++){
+                singleTable[q][i] = empList.get(rng.nextInt(empList.size())).getShortName();
+            }
+
+        }
+        Timetable.printTable(singleTable);
     }
     
     

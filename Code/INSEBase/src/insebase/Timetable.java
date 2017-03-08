@@ -16,11 +16,17 @@ public class Timetable {
     
     // Creates a blank 2d array of length 7 (number of days in a week)
     //and the length of the worktime array, determined above.
+    //Y is the length of worktime, X is the days of the week (or 7)
     public static String[][] makeTimetable(){
        String[][] timeTable = new String[7][workTime.length];
        
        return timeTable;
     }
+     public static boolean[][] makeBoolTimetable(){
+       boolean[][] timeTable = new boolean[7][workTime.length];
+       
+       return timeTable;
+    }   
     
     //Method to print a line of the time table, called by printTable multiple times to display the time table
     private static String printLine(String[][] timeTable, int tableRow){
@@ -40,6 +46,29 @@ public class Timetable {
         System.out.println("-------------------------------------------------");
         for (int i = 0; i < workTime.length; i++){
             System.out.println(workTime[i] + printLine(timeTable, i));
+        }
+        System.out.println("-------------------------------------------------");
+        
+    }
+        
+    //Method to print a line of the time table, called by printTable multiple times to display the time table
+    private static String printBoolLine(boolean[][] timeTable, int tableRow){
+        String catString = "";
+        for(int i = 0; i < 7; i++){
+            catString = catString + "| " + timeTable[i][tableRow] + " ";
+    }
+        catString = catString + "|";
+        return catString;
+    }
+    
+    // Method to print the entire table, prints the header and end of the
+    //time table and calls printLine as many times as there are shifts
+    public static void printBoolTable(boolean[][] timeTable){
+        System.out.println("-------------------------------------------------");        
+        System.out.println("|     | Mon | Tue | Wed | Thu | Fri | Sat | Sun |");
+        System.out.println("-------------------------------------------------");
+        for (int i = 0; i < workTime.length; i++){
+            System.out.println(workTime[i] + printBoolLine(timeTable, i));
         }
         System.out.println("-------------------------------------------------");
         
