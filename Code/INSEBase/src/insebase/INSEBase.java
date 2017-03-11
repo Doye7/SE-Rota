@@ -98,7 +98,7 @@ public class INSEBase {
         Scanner empInput = new Scanner(System.in);
         String name, sName;
         int hours, id;
-        boolean table[][];
+        //boolean table[][];
         
         System.out.println();
         System.out.println("Please enter the employee name:");
@@ -111,9 +111,9 @@ public class INSEBase {
         System.out.println("Please enter an id:");
         id = empInput.nextInt();
         
-        table = Timetable.makeBoolTimetable();        
+        //table = Timetable.makeBoolTimetable();        
         
-        empList.add(new Person(name, sName, hours, id, table));
+        empList.add(new Person(name, sName, hours, id, randomPreference()));
     }
     // Prints the employees in the list
     private static void printList(ArrayList<Person> empList){
@@ -123,6 +123,7 @@ public class INSEBase {
             System.out.println(empList.get(i).getShortName());
             System.out.println(empList.get(i).getMaxHours());
             System.out.println(empList.get(i).getIdNumber());
+            Timetable.printBoolTable(empList.get(i).getAble());
         }
         // Formatting line
         System.out.println("---------------");
@@ -185,6 +186,21 @@ public class INSEBase {
 
         }
         Timetable.printTable(singleTable);
+    }
+    
+    private static boolean[][] randomPreference(){
+        boolean able;
+        boolean[][] singleTable = Timetable.makeBoolTimetable();
+        for(int i = 0; i < singleTable[0].length; i++){
+            for(int q = 0; q < singleTable.length; q++){
+                able = true;
+                if(rng.nextInt(100) > 70){
+                    able = false;
+                }
+                singleTable[q][i] = able;
+            }
+        }
+        return singleTable;
     }
     
     
