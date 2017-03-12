@@ -28,7 +28,7 @@ public class INSEBase {
         //its auto resizing.
         ArrayList<Person> empList = loadFileToList();
         
-//      Test data adding employees to the list
+//      OLD Test data adding employees to the list
 //      empList.add(new Person("Dave Jones", "DAJ", 20, 1));
 //      empList.add(new Person("Will Smith", "WSM", 20, 2));
 //      empList.add(new Person("Jane Doe", "JDO", 20,3));
@@ -63,7 +63,8 @@ public class INSEBase {
                  //and fills each location with a randomly assigned employee
                  //from the employee list
             case "3": 
-                randomiser(empList);
+                //randomiser(empList);
+                Timetable.printTable(weightedRandomsier(empList));
             break;
             case "S": saveListToFile(empList);
             break;
@@ -186,6 +187,75 @@ public class INSEBase {
 
         }
         Timetable.printTable(singleTable);
+    }
+    
+    private static String[][] weightedRandomsier(ArrayList<Person> empList){
+       int[][] possibleHours = findPossibleEmpNum(empList);
+       String[][] singleTable = Timetable.makeTimetable();
+       boolean found = false;
+       int current = 0;
+       int o = 0;
+       //Starting with the least contested hours
+       for(int smallest = 0; smallest <= empList.size(); smallest++){
+           //for each timeslot
+            for(int i = 0; i < singleTable[0].length; i++){
+                for(int q = 0; q < singleTable.length; q++){
+                    //for( int current = 0; current < 20; current++){
+                    //If the timeslot is equal to the least contested
+                    current = 0;
+                    
+                    found = false;
+                    if(possibleHours[q][i] == smallest){
+
+                    //Starting with the employee with the least ammount of current hours
+                    //breakPoint:
+                    
+                    while(current < 20 && found == false){
+                        o = 0;
+                        //check each employee
+                        //for(int o = 0; o < empList.size(); o++){
+                        while(o < empList.size() & found == false){
+                            //if the employees avaliable hours, matches the hours being tested
+                            //AND the hours threshhold is higher than the hours they currently have
+                            //AND hours have not been found
+                            if(empList.get(o).getSpecificAble(q,i) == true & empList.get(o).getCurrentHours() == current & found == false ){
+                                // add the name to the table
+                                singleTable[q][i] = empList.get(o).getShortName(); 
+                                empList.get(o).incrementHours();
+                                found = true;
+                                
+                                System.out.println(smallest + "  " + i + "  " + q + "  " + current + "  " + o + "  " + empList.get(o).getCurrentHours());
+                                //break;
+                                  } 
+                            
+                            o++;
+                            
+                            //System.out.println(smallest + "  " + i + "  " + q + "  " + current + "  " + o);
+                                }
+                        current++;
+                         }        
+                        }  
+                }
+            }
+       }
+       Timetable.printIntTable(possibleHours);
+       return singleTable;
+    }
+    
+    private static int[][] findPossibleEmpNum(ArrayList<Person> empList){
+        int[][] singleTable = Timetable.makeIntTimetable();
+       // debug Timetable.printIntTable(singleTable);
+        for(int o = 0; o < empList.size(); o++){   
+            for(int i = 0; i < singleTable[0].length; i++){
+                for(int q = 0; q < singleTable.length; q++){
+                    if(empList.get(o).getSpecificAble(q,i) == true){
+                    singleTable[q][i] ++;
+                    }
+                    // debug System.out.println(empList.get(o).getSpecificAble(q,i) + " " +singleTable[q][i] + " " + q +" "+ i);
+                }
+            }
+    }
+        return singleTable;
     }
     
     private static boolean[][] randomPreference(){

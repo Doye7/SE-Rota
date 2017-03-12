@@ -14,7 +14,7 @@ package insebase;
 // Person class, Serializable allows for easy writing and reading to files
 public class Person implements java.io.Serializable {
     private String fullName, shortName;
-    private int maxHours, idNum;
+    private int maxHours, idNum, currentHours;
     private boolean able[][];
     
     // For creation of a new person
@@ -24,6 +24,7 @@ public class Person implements java.io.Serializable {
         maxHours = hours;
         idNum = ID;
         able = table;
+        currentHours = 0;
     }
     
     // Get methods, just returns the value
@@ -41,6 +42,12 @@ public class Person implements java.io.Serializable {
     }
     public boolean[][] getAble(){
         return able;
+    }
+    public boolean getSpecificAble(int xCo,int yCo){
+        return able[xCo][yCo];
+    }
+    public int getCurrentHours(){
+        return currentHours;
     }
     
     //Set methods, changes the value
@@ -61,5 +68,13 @@ public class Person implements java.io.Serializable {
     }
     public void setSpecificAble(boolean newVal, int xCo, int yCo){
         able[xCo][yCo] = newVal;
+    }
+    
+    //Other Methods
+    public void resetHours(){
+        currentHours = 0;       
+    }
+    public void incrementHours(){
+        currentHours ++;
     }
 }
