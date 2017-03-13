@@ -1,0 +1,4 @@
+On first load if there is no previous save an error will show but the program will not crash.
+Add an employee then Save and the error won't show again.
+When entering employee name ensure its Firstname space lastname
+ID will be auto later but add it now and try not to dupelicate.
