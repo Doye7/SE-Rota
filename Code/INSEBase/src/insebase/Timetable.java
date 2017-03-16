@@ -109,5 +109,29 @@ public class Timetable {
         System.out.println("-------------------------------------------------");
         
     }
+    private static String catLine(String[][] timeTable, int tableRow){
+        String catString = "";
+        for(int i = 0; i < 7; i++){
+            catString = catString + "| " + timeTable[i][tableRow] + " ";
+    }
+        catString = catString + "|";
+        return catString;
+    }
+    
+    // Method to print the entire table, prints the header and end of the
+    //time table and calls printLine as many times as there are shifts
+    public static String catTable(String[][] timeTable){
+        String catTable = "";
+        catTable = catTable + "-------------------------------------------------" + "\n";        
+        catTable = catTable + "|     | Mon | Tue | Wed | Thu | Fri | Sat | Sun |" + "\n";
+        catTable = catTable + "-------------------------------------------------" + "\n";
+        for (int i = 0; i < workTime.length; i++){
+            catTable = catTable + workTime[i] + printLine(timeTable, i) + "\n";
+        }
+        catTable = catTable + "-------------------------------------------------";
+        return catTable;
+        
+    }
+    
     
 }

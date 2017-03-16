@@ -16,6 +16,7 @@ import java.util.*;
 public class INSEBase {
     //Random for the generating of time table
    static Random rng = new Random();
+   static ArrayList<Person> empList;
 // -----------------------------------------------------------------------------
 //* Data is currently saved to C:/data/ and consists of one file named
 //employee.ser. Run once then save to generate the file if a read fails.
@@ -26,7 +27,8 @@ public class INSEBase {
     public static void main(String[] args) {
         // Initialise Arraylist to contain the employees. Arraylist chosen for
         //its auto resizing.
-        ArrayList<Person> empList = loadFileToList();
+        empList = loadFileToList();
+        new MainMenu().setVisible(true);
         
 //      OLD Test data adding employees to the list
 //      empList.add(new Person("Dave Jones", "DAJ", 20, 1));
@@ -35,49 +37,49 @@ public class INSEBase {
 //      empList.add(new Person("Matt Harris", "MAH", 20, 4));
  //     empList.add(new Person("Alice Williams", "ALW", 20, 5));
  
- boolean exit = true;
- Scanner input = new Scanner(System.in);
- 
- 
+// boolean exit = true;
+// Scanner input = new Scanner(System.in);
+// 
+// 
  // Menu system
- while(exit){
-        System.out.println("|------------------------|");
-        System.out.println("|Please choose an option:|");
-        System.out.println("|------------------------|");
-        System.out.println("|1|    Show employees    |");
-        System.out.println("|2|   Add new employee   |");
-        System.out.println("|3|    Show timetable    |");
-        System.out.println("|------------------------|");
-        System.out.println("|S|     Save changes     |");
-        System.out.println("|X|         Exit         |");
-        System.out.println("|------------------------|");
-        
-        String choice = input.next();
-        
-        switch (choice){
-            case "1": printList(empList);
-                 break;
-            case "2": addNewEmployee(empList);
-                 break;
-                 // Create and populate the timetable, creates a new timetable
-                 //and fills each location with a randomly assigned employee
-                 //from the employee list
-            case "3": 
-                //randomiser(empList);
-                Timetable.printTable(weightedRandomsier(empList));
-            break;
-            case "S": saveListToFile(empList);
-            break;
-            case "X": exit = false;
-            break;            
-        }
-        
-        
-        if(exit){ 
-            System.out.println("Type Y to continue");
-            input.next();
-        }
- }
+// while(exit){
+//        System.out.println("|------------------------|");
+//        System.out.println("|Please choose an option:|");
+//        System.out.println("|------------------------|");
+//        System.out.println("|1|    Show employees    |");
+//        System.out.println("|2|   Add new employee   |");
+//        System.out.println("|3|    Show timetable    |");
+//        System.out.println("|------------------------|");
+//        System.out.println("|S|     Save changes     |");
+//        System.out.println("|X|         Exit         |");
+//        System.out.println("|------------------------|");
+//        
+//        String choice = input.next();
+//        
+//        switch (choice){
+//            case "1": printList(empList);
+//                 break;
+//            case "2": addNewEmployee(empList);
+//                 break;
+//                 // Create and populate the timetable, creates a new timetable
+//                 //and fills each location with a randomly assigned employee
+//                 //from the employee list
+//            case "3": 
+//                //randomiser(empList);
+//                Timetable.printTable(weightedRandomsier(empList));
+//            break;
+//            case "S": saveListToFile(empList);
+//            break;
+//            case "X": exit = false;
+//            break;            
+//        }
+//        
+//        
+//        if(exit){ 
+//            System.out.println("Type Y to continue");
+//            input.next();
+//        }
+// }
  
  
 //        String[][] singleTable = Timetable.makeTimetable();
@@ -95,7 +97,7 @@ public class INSEBase {
 //       saveListToFile(empList);
 //       Timetable.printTable(singleTable); 
     }
-    private static void addNewEmployee(ArrayList<Person> empList){
+    public static void OLDaddNewEmployee(ArrayList<Person> empList){
         Scanner empInput = new Scanner(System.in);
         String name, sName;
         int hours, id;
@@ -116,6 +118,11 @@ public class INSEBase {
         
         empList.add(new Person(name, sName, hours, id, randomPreference()));
     }
+    public static void addNewEmployee(ArrayList<Person> empList, String name, String sName, int maxHours, int id){
+        empList.add(new Person(name, sName, maxHours, id, randomPreference()));
+        //saveListToFile(empList);
+       // printList(empList);
+    }
     // Prints the employees in the list
     private static void printList(ArrayList<Person> empList){
                 for(int i = 0; i < empList.size(); i++){
@@ -129,7 +136,7 @@ public class INSEBase {
         // Formatting line
         System.out.println("---------------");
     }
-    private static void saveListToFile(ArrayList<Person> empList){
+    public static void saveListToFile(ArrayList<Person> empList){
         String dirname = "/data";
         File path = new File(dirname);
       
@@ -189,7 +196,7 @@ public class INSEBase {
         Timetable.printTable(singleTable);
     }
     
-    private static String[][] weightedRandomsier(ArrayList<Person> empList){
+    public static String[][] weightedRandomsier(ArrayList<Person> empList){
        int[][] possibleHours = findPossibleEmpNum(empList);
        String[][] singleTable = Timetable.makeTimetable();
        boolean found = false;
@@ -271,6 +278,9 @@ public class INSEBase {
             }
         }
         return singleTable;
+    }
+    public static ArrayList<Person> getEmpList(){
+        return empList;
     }
     
     
