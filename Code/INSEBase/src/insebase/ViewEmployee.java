@@ -17,6 +17,15 @@ public class ViewEmployee extends javax.swing.JFrame {
     public ViewEmployee() {
         initComponents();
         
+        //Remove the leading "|" from the list
+        String[] formattedTime = Timetable.getWorkTime();
+        for (int i = 0; i < formattedTime.length; i++){
+            formattedTime[i] = formattedTime[i].substring(1);
+        }
+        
+        listTime.setListData(formattedTime);
+        showEmployee(index);
+                 
     }
 
     /**
@@ -33,11 +42,22 @@ public class ViewEmployee extends javax.swing.JFrame {
         btnPrev = new javax.swing.JButton();
         btnNext = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
+        btnPreference = new javax.swing.JButton();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        listDay = new javax.swing.JList<>();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        listTime = new javax.swing.JList<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         txaView.setColumns(20);
+        txaView.setFont(new java.awt.Font("Courier New", 0, 12)); // NOI18N
         txaView.setRows(5);
+        txaView.addContainerListener(new java.awt.event.ContainerAdapter() {
+            public void componentAdded(java.awt.event.ContainerEvent evt) {
+                txaViewComponentAdded(evt);
+            }
+        });
         jScrollPane1.setViewportView(txaView);
 
         btnPrev.setText("Prev");
@@ -61,20 +81,43 @@ public class ViewEmployee extends javax.swing.JFrame {
             }
         });
 
+        btnPreference.setText("Toggle Preference");
+        btnPreference.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPreferenceActionPerformed(evt);
+            }
+        });
+
+        listDay.setModel(new javax.swing.AbstractListModel<String>() {
+            String[] strings = { "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday" };
+            public int getSize() { return strings.length; }
+            public String getElementAt(int i) { return strings[i]; }
+        });
+        listDay.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        jScrollPane2.setViewportView(listDay);
+
+        listTime.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        jScrollPane3.setViewportView(listTime);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 360, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnPreference, javax.swing.GroupLayout.DEFAULT_SIZE, 164, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(btnPrev, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 80, Short.MAX_VALUE)
+                            .addComponent(btnPrev, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnNext, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                            .addComponent(btnNext, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -83,11 +126,16 @@ public class ViewEmployee extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(btnPreference)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jScrollPane2)
+                            .addComponent(jScrollPane3))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(btnPrev)
-                            .addComponent(btnNext))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addComponent(btnNext)
+                            .addComponent(btnPrev))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButton3))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 288, Short.MAX_VALUE))
                 .addContainerGap())
@@ -122,6 +170,24 @@ public class ViewEmployee extends javax.swing.JFrame {
         // TODO add your handling code here:
         this.dispose();
     }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void btnPreferenceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPreferenceActionPerformed
+        // TODO add your handling code here:
+        
+        //Get the current boolean value for the chosen location
+        
+        boolean current = INSEBase.getEmpList().get(index).getSpecificAble(listDay.getSelectedIndex(),listTime.getSelectedIndex());
+        // Set the current location to the opposite of what it is
+        INSEBase.getEmpList().get(index).setSpecificAble(!current,listDay.getSelectedIndex(),listTime.getSelectedIndex());
+        
+        showEmployee(index);
+        
+    }//GEN-LAST:event_btnPreferenceActionPerformed
+
+    private void txaViewComponentAdded(java.awt.event.ContainerEvent evt) {//GEN-FIRST:event_txaViewComponentAdded
+        // TODO add your handling code here:
+        showEmployee(index);
+    }//GEN-LAST:event_txaViewComponentAdded
     
     /**
      * @param args the command line arguments
@@ -156,9 +222,10 @@ public class ViewEmployee extends javax.swing.JFrame {
                 new ViewEmployee().setVisible(true);
             }
         });
+        
     }
     private void showEmployee(int index){
-        
+        //Formatting for the display
         String catString;
         String name = INSEBase.getEmpList().get(index).getFullName();
         String sName = INSEBase.getEmpList().get(index).getShortName();
@@ -169,16 +236,24 @@ public class ViewEmployee extends javax.swing.JFrame {
         catString = catString + "Shorthand name: " + sName + "\n";
         catString = catString + "Maximum hours: " + maxHours + "\n";
         catString = catString + "ID Number: " + id + "\n";
+        catString = catString + "\n" + Timetable.catBoolTable(INSEBase.getEmpList().get(index).getAble()) + "\n";
+        catString = catString + "T = Willing to work the shift \nFFF = Prefer to have off";
         
         txaView.setText(catString);
         
     }
+    //Index that can be used by all buttons
 private int index = 0;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnNext;
+    private javax.swing.JButton btnPreference;
     private javax.swing.JButton btnPrev;
     private javax.swing.JButton jButton3;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JList<String> listDay;
+    private javax.swing.JList<String> listTime;
     private javax.swing.JTextArea txaView;
     // End of variables declaration//GEN-END:variables
 }

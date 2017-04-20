@@ -14,6 +14,10 @@ public class Timetable {
     // Shift hours, changing this will directly change the number of shifts and should not break the program, save data must be cleared however
     static String workTime[] = {"|11:00", "|12:00", "|13:00", "|14:00", "|15:00", "|16:00"};
     
+    public static String[] getWorkTime(){
+        return workTime;
+    }
+    
     // Creates a blank 2d array of length 7 (number of days in a week)
     //and the length of the worktime array, determined above.
     //Y is the length of worktime, X is the days of the week (or 7)
@@ -127,6 +131,19 @@ public class Timetable {
         catTable = catTable + "-------------------------------------------------" + "\n";
         for (int i = 0; i < workTime.length; i++){
             catTable = catTable + workTime[i] + printLine(timeTable, i) + "\n";
+        }
+        catTable = catTable + "-------------------------------------------------";
+        return catTable;
+        
+    }
+    
+        public static String catBoolTable(boolean[][] timeTable){
+            String catTable = "";
+        catTable = catTable + "-------------------------------------------------" + "\n";        
+        catTable = catTable + "|     | Mon | Tue | Wed | Thu | Fri | Sat | Sun |" + "\n";
+        catTable = catTable + "-------------------------------------------------" + "\n";
+        for (int i = 0; i < workTime.length; i++){
+            catTable = catTable + "|" + workTime[i] + printBoolLine(timeTable, i) + "\n";
         }
         catTable = catTable + "-------------------------------------------------";
         return catTable;

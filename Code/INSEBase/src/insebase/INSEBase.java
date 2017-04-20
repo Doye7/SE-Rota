@@ -231,7 +231,7 @@ public class INSEBase {
                                 empList.get(o).incrementHours();
                                 found = true;
                                 
-                                System.out.println(smallest + "  " + i + "  " + q + "  " + current + "  " + o + "  " + empList.get(o).getCurrentHours());
+                                // debug System.out.println(smallest + "  " + i + "  " + q + "  " + current + "  " + o + "  " + empList.get(o).getCurrentHours());
                                 //break;
                                   } 
                             
@@ -279,6 +279,8 @@ public class INSEBase {
         }
         return singleTable;
     }
+    
+       
     public static ArrayList<Person> getEmpList(){
         return empList;
     }
