@@ -5,6 +5,9 @@
  */
 package insebase;
 
+import javax.swing.JOptionPane;
+import javax.swing.JFrame;
+
 /**
  *
  * @author Doye
@@ -132,8 +135,28 @@ public class AddEmployee extends javax.swing.JFrame {
 
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
         // TODO add your handling code here:
+        boolean valid = false, nameValid = false, shortValid = false, maxValid = false, idValid = false;
+        String errorMessage = "";
+        
+        nameValid = Validation.emptyStringTest(txtName.getText());
+        shortValid = (Validation.emptyStringTest(txtShort.getText()) & txtShort.getText().length() == 3);
+        maxValid = Validation.integerTest(txtMax.getText());
+        idValid = Validation.integerTest(txtID.getText());
+        
+        if(!nameValid){errorMessage = errorMessage + "Please enter a name\n";}
+        if(!shortValid){errorMessage = errorMessage + "Please enter a short hand name 3 letters long\n";}
+        if(!maxValid){errorMessage = errorMessage + "Please enter a number into the max hours field\n";}
+        if(!idValid){errorMessage = errorMessage + "Please enter a number into the ID field\n";}
+        
+        valid = nameValid & shortValid & maxValid & idValid;
+        
+        if (valid){       
         INSEBase.addNewEmployee(INSEBase.getEmpList(), txtName.getText(), txtShort.getText(), Integer.parseInt(txtMax.getText()),Integer.parseInt(txtID.getText()));
         this.dispose();
+    }
+        else{
+            JOptionPane.showMessageDialog(null,errorMessage, "Please try again",JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_btnAddActionPerformed
 
     private void btnDiscardActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDiscardActionPerformed

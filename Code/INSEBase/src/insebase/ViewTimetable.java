@@ -91,7 +91,7 @@ public class ViewTimetable extends javax.swing.JFrame {
 
     private void btnViewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnViewActionPerformed
         // TODO add your handling code here:
-        txaTable.setText(Timetable.catTable(INSEBase.weightedRandomsier(INSEBase.getEmpList())) + "\n If a timeslot says null then no employee can work\n that day and a manager must decide");
+        txaTable.setText(Timetable.catTable(INSEBase.weightedRandomsier(INSEBase.getEmpList())) + "\n If a timeslot says null then no employee can work\n that day and a manager must decide who does.");
     }//GEN-LAST:event_btnViewActionPerformed
 
     /**
