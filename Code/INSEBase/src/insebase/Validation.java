@@ -10,7 +10,7 @@ package insebase;
  * @author Doye
  */
 public class Validation {
-    
+    // Tests if the incoming string can be converted to an integer, returns bool
     public static boolean integerTest(String input){
         boolean valid = true;
         try{
@@ -22,7 +22,7 @@ public class Validation {
         
         return valid;
     }
-    
+    // Tests if the incoming string is null or empty, used for the Swing inputboxes
     public static boolean emptyStringTest(String input){
         boolean valid = false;
         try{

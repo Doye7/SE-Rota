@@ -17,6 +17,7 @@ public class INSEBase {
     //Random for the generating of time table
    static Random rng = new Random();
    static ArrayList<Person> empList;
+   static boolean loadedFile = false;
 // -----------------------------------------------------------------------------
 //* Data is currently saved to C:/data/ and consists of one file named
 //employee.ser. Run once then save to generate the file if a read fails.
@@ -173,6 +174,7 @@ public class INSEBase {
             fileIn.close();
             // Confirmation message
             System.out.println("Loaded");
+            loadedFile = true;
             //Catch exceptions
         }catch(IOException e){
             e.printStackTrace();
@@ -207,7 +209,6 @@ public class INSEBase {
            //for each timeslot
             for(int i = 0; i < singleTable[0].length; i++){
                 for(int q = 0; q < singleTable.length; q++){
-                    //for( int current = 0; current < 20; current++){
                     //If the timeslot is equal to the least contested
                     current = 0;
                     
@@ -215,12 +216,11 @@ public class INSEBase {
                     if(possibleHours[q][i] == smallest){
 
                     //Starting with the employee with the least ammount of current hours
-                    //breakPoint:
+                    
                     
                     while(current < 20 && found == false){
                         o = 0;
                         //check each employee
-                        //for(int o = 0; o < empList.size(); o++){
                         while(o < empList.size() & found == false){
                             //if the employees avaliable hours, matches the hours being tested
                             //AND the hours threshhold is higher than the hours they currently have
@@ -231,13 +231,12 @@ public class INSEBase {
                                 empList.get(o).incrementHours();
                                 found = true;
                                 
-                                // debug System.out.println(smallest + "  " + i + "  " + q + "  " + current + "  " + o + "  " + empList.get(o).getCurrentHours());
-                                //break;
+                                
                                   } 
                             
                             o++;
                             
-                            //System.out.println(smallest + "  " + i + "  " + q + "  " + current + "  " + o);
+                            
                                 }
                         current++;
                          }        
@@ -258,7 +257,7 @@ public class INSEBase {
                     if(empList.get(o).getSpecificAble(q,i) == true){
                     singleTable[q][i] ++;
                     }
-                    // debug System.out.println(empList.get(o).getSpecificAble(q,i) + " " +singleTable[q][i] + " " + q +" "+ i);
+                    
                 }
             }
     }
@@ -285,5 +284,8 @@ public class INSEBase {
         return empList;
     }
     
+    public static boolean getLoadedStatus(){
+        return loadedFile;
+    }
     
 }

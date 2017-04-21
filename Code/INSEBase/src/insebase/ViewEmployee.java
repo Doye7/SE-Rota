@@ -5,6 +5,8 @@
  */
 package insebase;
 
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Doye
@@ -151,7 +153,14 @@ public class ViewEmployee extends javax.swing.JFrame {
         }
         else{
             index = index - 1;
-            showEmployee(index);
+            try{
+                showEmployee(index);
+            }
+            catch(Exception e){
+                JOptionPane.showMessageDialog(null, "No employees found", "Please try again",JOptionPane.ERROR_MESSAGE);
+                this.dispose();
+
+            }
         }
     }//GEN-LAST:event_btnPrevActionPerformed
 

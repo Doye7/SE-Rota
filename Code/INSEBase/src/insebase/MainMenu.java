@@ -18,6 +18,15 @@ public class MainMenu extends javax.swing.JFrame {
      */
     public MainMenu() {
         initComponents();
+        // If a load fails, disable the buttons that require a sucessful load
+        if(!INSEBase.getLoadedStatus()){
+            JOptionPane.showMessageDialog(null,"Warning: No employees found", "Warning",JOptionPane.ERROR_MESSAGE);
+        saveState = false;
+        btnViewEmployee.setEnabled(false);
+        btnViewTimetable.setEnabled(false);
+        btnSave.setEnabled(false);
+        }
+
     }
 
     /**
@@ -121,6 +130,18 @@ public class MainMenu extends javax.swing.JFrame {
         );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                formFocusGained(evt);
+            }
+        });
+        addWindowFocusListener(new java.awt.event.WindowFocusListener() {
+            public void windowGainedFocus(java.awt.event.WindowEvent evt) {
+                formWindowGainedFocus(evt);
+            }
+            public void windowLostFocus(java.awt.event.WindowEvent evt) {
+            }
+        });
 
         btnNewEmployee.setText("Add new employee");
         btnNewEmployee.addActionListener(new java.awt.event.ActionListener() {
@@ -218,6 +239,7 @@ public class MainMenu extends javax.swing.JFrame {
 
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
         // TODO add your handling code here:
+        // Save the file
         INSEBase.saveListToFile(INSEBase.getEmpList());
         lblInfo.setText("Saved!");
     }//GEN-LAST:event_btnSaveActionPerformed
@@ -227,6 +249,24 @@ public class MainMenu extends javax.swing.JFrame {
         dispose();
     }//GEN-LAST:event_btnExitActionPerformed
 
+    private void formFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_formFocusGained
+        // TODO add your handling code here:
+
+        
+    }//GEN-LAST:event_formFocusGained
+
+    private void formWindowGainedFocus(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowGainedFocus
+        // TODO add your handling code here:
+        // Re-enable the buttons if a employee has been added
+        btnSave.setEnabled(saveState);
+        btnViewEmployee.setEnabled(saveState);
+        btnViewTimetable.setEnabled(saveState);
+    }//GEN-LAST:event_formWindowGainedFocus
+
+    public static void setSaveable(boolean save){
+        saveState = save;
+    }
+    
     /**
      * @param args the command line arguments
      */
@@ -261,7 +301,7 @@ public class MainMenu extends javax.swing.JFrame {
             }
         });
     }
-
+public static boolean saveState = true;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAdd;
     private javax.swing.JButton btnDiscard;

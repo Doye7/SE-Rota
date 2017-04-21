@@ -135,14 +135,18 @@ public class AddEmployee extends javax.swing.JFrame {
 
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
         // TODO add your handling code here:
+        // Each input has its own valid boolean
         boolean valid = false, nameValid = false, shortValid = false, maxValid = false, idValid = false;
         String errorMessage = "";
         
+        // Checks if the inputs are valid using the methods from Validation
+        //shortValid has another step of validation since it must be 3 chars long
         nameValid = Validation.emptyStringTest(txtName.getText());
         shortValid = (Validation.emptyStringTest(txtShort.getText()) & txtShort.getText().length() == 3);
         maxValid = Validation.integerTest(txtMax.getText());
         idValid = Validation.integerTest(txtID.getText());
         
+        // For each invalid input, construct an approriate error message
         if(!nameValid){errorMessage = errorMessage + "Please enter a name\n";}
         if(!shortValid){errorMessage = errorMessage + "Please enter a short hand name 3 letters long\n";}
         if(!maxValid){errorMessage = errorMessage + "Please enter a number into the max hours field\n";}
@@ -150,10 +154,13 @@ public class AddEmployee extends javax.swing.JFrame {
         
         valid = nameValid & shortValid & maxValid & idValid;
         
+        // If everything is valid, add the new employee and enable menu buttons if they were disabled
         if (valid){       
         INSEBase.addNewEmployee(INSEBase.getEmpList(), txtName.getText(), txtShort.getText(), Integer.parseInt(txtMax.getText()),Integer.parseInt(txtID.getText()));
+        MainMenu.setSaveable(true);
         this.dispose();
-    }
+            }
+        // Otherwise show the error message
         else{
             JOptionPane.showMessageDialog(null,errorMessage, "Please try again",JOptionPane.ERROR_MESSAGE);
         }
