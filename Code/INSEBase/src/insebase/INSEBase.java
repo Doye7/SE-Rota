@@ -124,7 +124,7 @@ public class INSEBase {
         //saveListToFile(empList);
        // printList(empList);
     }
-    // Prints the employees in the list
+    // Prints the employees in the list to console
     private static void printList(ArrayList<Person> empList){
                 for(int i = 0; i < empList.size(); i++){
             System.out.println("---------------");
@@ -199,6 +199,10 @@ public class INSEBase {
     }
     
     public static String[][] weightedRandomsier(ArrayList<Person> empList){
+        // Reset the number of hours each employee has timetabled
+        for(int i = 0; i < empList.size(); i++){
+            empList.get(i).resetHours();
+        }
        int[][] possibleHours = findPossibleEmpNum(empList);
        String[][] singleTable = Timetable.makeTimetable();
        boolean found = false;
@@ -244,7 +248,7 @@ public class INSEBase {
                 }
             }
        }
-       Timetable.printIntTable(possibleHours);
+       //Line to show hours avaliable for each slotTimetable.printIntTable(possibleHours);
        return singleTable;
     }
     
@@ -265,6 +269,7 @@ public class INSEBase {
     }
     
     private static boolean[][] randomPreference(){
+        //Randomly allocated avaliable hours to be changed by the employee later
         boolean able;
         boolean[][] singleTable = Timetable.makeBoolTimetable();
         for(int i = 0; i < singleTable[0].length; i++){
