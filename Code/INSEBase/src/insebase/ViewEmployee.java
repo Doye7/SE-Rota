@@ -184,13 +184,17 @@ public class ViewEmployee extends javax.swing.JFrame {
         // TODO add your handling code here:
         
         //Get the current boolean value for the chosen location
-        
+        if(listDay.isSelectionEmpty() | listTime.isSelectionEmpty()){
+            JOptionPane.showMessageDialog(null,"Please select a date and time", "Please try again",JOptionPane.ERROR_MESSAGE);
+
+        }
+        else{
         boolean current = INSEBase.getEmpList().get(index).getSpecificAble(listDay.getSelectedIndex(),listTime.getSelectedIndex());
         // Set the current location to the opposite of what it is
         INSEBase.getEmpList().get(index).setSpecificAble(!current,listDay.getSelectedIndex(),listTime.getSelectedIndex());
         
         showEmployee(index);
-        
+        }
     }//GEN-LAST:event_btnPreferenceActionPerformed
 
     private void txaViewComponentAdded(java.awt.event.ContainerEvent evt) {//GEN-FIRST:event_txaViewComponentAdded
